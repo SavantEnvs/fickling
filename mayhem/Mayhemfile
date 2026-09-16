@@ -1,0 +1,15 @@
+# Mayhem target: fickling pickle decompiler (Atheris/libFuzzer harness).
+# The cmd binary is the compiled ELF launcher that drives mayhem/fuzz_pickle_decompiler.py;
+# Atheris instruments the fickling library so the run records coverage (edges).
+project: savantenvs/fickling
+target: fuzz-pickle-decompiler-buggy-mhh-run-101
+# origin: https://app.mayhem.security/mayhemheroes/fickling/fuzz-pickle-decompiler/101
+
+cmds:
+  - cmd: /mayhem/fuzz_pickle_decompiler
+    libfuzzer: true
+    timeout: 10
+
+# Seed corpus of representative pickle files (ported from the original fuzz/fuzz_corpus).
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
